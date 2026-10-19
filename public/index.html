@@ -200,8 +200,8 @@
                 </div>
             </div>
         </div>
-    <script>
-    let wallet = 0.00; 
+   <script>
+    let wallet = 0.00;
     let quizIndex = 0, quizScore = 0;
     let lexIndex = 0, lexScore = 0, lexTimer = null, lexTimeLeft = 8;
     
@@ -237,7 +237,9 @@
         { options: ["License", "Lisence", "Licence"], correct: 0 },
         { options: ["Receipt", "Reciept", "Receit"], correct: 0 },
         { options: ["Tomorrow", "To-morrow", "Tommorow"], correct: 0 } 
-    ];function handleRegistration() {
+    ];
+
+    function handleRegistration() {
         const name = document.getElementById('regName').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const phone = document.getElementById('regPhone').value.trim();
@@ -268,7 +270,7 @@
         alert("Session disconnected safely.");
     }
 
-  function switchTab(tab) {
+    function switchTab(tab) {
         document.getElementById('viewHome').style.display = tab === 'home' ? 'block' : 'none';
         document.getElementById('viewProfile').style.display = tab === 'profile' ? 'block' : 'none';
         document.getElementById('viewPackages').style.display = tab === 'packages' ? 'block' : 'none';
@@ -276,10 +278,7 @@
         document.getElementById('tabHome').className = 'nav-btn' + (tab === 'home' ? ' active' : '');
         document.getElementById('tabProfile').className = 'nav-btn' + (tab === 'profile' ? ' active' : '');
         document.getElementById('tabPackages').className = 'nav-btn' + (tab === 'packages' ? ' active' : '');
-    }
-
-    // --- AUTOMATED MPESA POPUP TRIGGER HANDLER ---
-    // --- INTASEND LIVE M-PESA CHECKOUT ENGINE ---
+    }// --- INTASEND AUTOMATED M-PESA CHECKOUT ENGINE ---
     function triggerMpesaPayment(amount, packageName) {
         const activePhone = document.getElementById('profPhone').innerText;
         const activeEmail = document.getElementById('profEmail').innerText;
@@ -290,21 +289,19 @@
             return;
         }
 
-        // Initialize the IntaSend Checkout Setup
         let intasend = new IntaSend({
-          public_key: "ISPubKey_test_88df2cb1-16ba-4a6c-9475-bf404ec56208", 
-live: false 
+            public_key: "ISPubKey_test_88df2cb1-16ba-4a6c-9475-bf404ec56208", 
+            live: false 
         });
 
         intasend.on("PROGRESS", (results) => { console.log("Payment in progress...", results); })
         intasend.on("SUCCESS", (results) => {
-            alert(`🎉 Success! Payment verified for ${packageName}. Your premium status has been activated.`);
-            wallet += parseFloat(amount); // Automatically add funds or adjust player constraints locally
+            alert(`🎉 Success! Payment verified for ${packageName}. Premium status activated.`);
+            wallet += parseFloat(amount); 
             document.getElementById('walletBal').innerText = wallet.toFixed(2);
         })
         intasend.on("FAILED", (results) => { alert("❌ Transaction was declined or timed out."); })
 
-        // Trigger the secure payment sheet modal
         intasend.run({
             amount: amount,
             currency: "KES",
@@ -384,8 +381,11 @@ live: false
     }
 
     function checkWin(p) {
-        const ways = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-        return ways.some(w => w.every(i => tttBoard[i]===p));
+        const wins = [, [3, 4, 5], [6, 7, 8],
+, [1, 4, 7], [2, 5, 8],
+, [2, 4, 6]
+        ];
+        return wins.some(w => w.every(i => tttBoard[i]===p));
     }
 
     function endMatch(res) {
@@ -415,7 +415,6 @@ live: false
             return;
         }
         lexTimeLeft = 8;
-        document.getElementById('profForm' ? '' : 'lexicalTimerBar').style.width = `${(lexTimeLeft/8)*100}%`;
         document.getElementById('lexicalProgress').innerText = `Word ${lexIndex+1} of 15 (${lexIndex < 10 ? 'Hard Word' : 'Medium Word'})`;
         document.getElementById('lexicalTimerText').innerText = `Time Left: ${lexTimeLeft}s`;
 
@@ -435,4 +434,4 @@ live: false
     }
 </script>
 </body>
-</html>  
+</html>
