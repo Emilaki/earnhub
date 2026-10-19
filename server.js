@@ -113,7 +113,6 @@ app.post('/api/mpesa-callback', (req, res) => {
     console.log("M-Pesa Callback Received:", JSON.stringify(callbackData || req.body));
 
     if (callbackData && callbackData.ResultCode === 0) {
-        // Payment was successful!
         const metadataItems = callbackData.CallbackMetadata?.Item || [];
         const amountPaid = metadataItems.find(item => item.Name === "Amount")?.Value;
         const mpesaReceipt = metadataItems.find(item => item.Name === "MpesaReceiptNumber")?.Value;
