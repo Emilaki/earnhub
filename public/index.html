@@ -14,6 +14,7 @@
         input { width: 100%; padding: 12px; margin: 6px 0 14px 0; background: var(--bg-base); border: 1px solid var(--border-green); border-radius: 8px; color: white; box-sizing: border-box; }
         .btn { background: var(--border-green); color: white; border: none; padding: 14px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; width: 100%; text-align: center; box-sizing: border-box; font-size: 1rem; text-decoration: none; }
         .btn-lime { background: var(--accent-lime); color: #000; }
+        .btn-red { background: var(--alert-red); color: white; }
         .btn:hover { opacity: 0.9; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 24px; }
         .nav-btn { background: #162a20; border: 1px solid var(--border-green); color: white; padding: 10px; cursor: pointer; text-align: center; border-radius: 6px; font-weight: bold; }
@@ -34,10 +35,10 @@
 <body>
 <div class="wrapper">
 
-    <!-- GLOBAL ACCESS GATEWAY -->
+    <!-- SIGN UP / LOGIN GATEWAY CONTROLLER -->
     <div id="authPanel" class="card">
         <h2>Create Account — EA EarnHub Pro</h2>
-        <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">⚠️ Enter valid details to create your secure earning profile and track your withdrawal ledger.</p>
+        <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">⚠️ Enter valid credentials to instantiate a secure account ledger and profile sequence.</p>
         
         <label>Full Name</label>
         <input type="text" id="regName" placeholder="Enter your full name...">
@@ -52,21 +53,21 @@
         <input type="password" id="regPass" placeholder="••••••••">
 
         <button class="btn btn-lime" onclick="handleRegistration()">Create Account & Enter Platform</button>
-   
+    </div>
 
-    <!-- MAIN INTERACTIVE PORTAL (HIDDEN BY DEFAULT UNTIL SIGN UP) -->
+    <!-- MAIN PLATFORM INTERACTIVE DASHBOARD CONTAINER -->
     <div id="mainDashboard" style="display: none;">
         <div class="menu-grid">
             <div class="nav-btn active" id="tabHome" onclick="switchTab('home')">Home</div>
             <div class="nav-btn" id="tabProfile" onclick="switchTab('profile')">Profile</div>
             <div class="nav-btn" id="tabPackages" onclick="switchTab('packages')">Packages</div>
         </div>
+
         <div class="card" style="border-color: var(--accent-lime); background: #16241d;">
             <h3>📋 System Menu Regulations</h3>
-            <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #cbd5e1;">
-                <strong>Withdrawal Instruction:</strong> When a user withdraws <strong>KSh 50.00</strong>, they leave with exactly <strong>KSh 42.00</strong> into custody after deductions. 
+            <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">
+                <strong>Withdrawal Instruction:</strong> When a user withdraws <strong>KSh 50.00</strong>, they leave with exactly <strong>KSh 42.00</strong> into custody after deductions. Min: KSh 100.
             </p>
-        </div>
         </div><!-- VIEW A: HOME PLAY PORTALS -->
         <div id="viewHome">
             
@@ -117,12 +118,12 @@
         <div id="viewProfile" style="display: none;">
             <div class="card">
                 <h2>User Profile Analytics</h2>
-                <p><strong>Account Holder Name:</strong> Boss Myles Otieno</p>
-                <p><strong>Linked Email Account:</strong> emilakiboss@gmail.com</p>
-                <p><strong>Verified Mobile Number:</strong> 0721647355</p>
+                <p><strong>Account Holder Name:</strong> <span id="profNameDisplay">User</span></p>
+                <p><strong>Linked Email Account:</strong> <span id="profEmail">loading...</span></p>
+                <p><strong>Verified Mobile Number:</strong> <span id="profPhone">loading...</span></p>
                 <hr style="border-color: var(--border-green);">
                 <h3>Available Balance Currency</h3>
-                <h1 style="font-size: 2.8rem; margin: 10px 0; color: var(--accent-lime);">KSh <span id="walletBal">150.00</span></h1>
+                <h1 style="font-size: 2.8rem; margin: 10px 0; color: var(--accent-lime);">KSh <span id="walletBal">0.00</span></h1>
                 
                 <!-- FUND OUTBOUND SETTLEMENT PANEL -->
                 <div style="margin-top: 20px; padding: 15px; background: var(--bg-base); border-radius: 8px; border: 1px solid var(--border-green);">
@@ -136,8 +137,12 @@
                 <!-- CONTACT SUPPORT MODULE -->
                 <div style="margin-top: 20px; text-align:center;">
                     <p style="font-size:0.9rem; color:#cbd5e1;">Need system assistance? Reach out to support operations instantly:</p>
-                    <button class="btn" style="width:auto; padding:10px 20px;" onclick="alert('Support channels activated! Contacting portal ledger desk at support@earnhub-verified.co.ke')">📬 Contact Us</button>
+                    <button class="btn" style="width:auto; padding:10px 20px; margin-bottom: 15px;" onclick="alert('Support channels activated! Contacting portal ledger desk at support@earnhub-verified.co.ke')">📬 Contact Us</button>
                 </div>
+
+                <!-- SECURE SYSTEM LOGOUT MODULE -->
+                <hr style="border-color: var(--border-green);">
+                <button class="btn btn-red" onclick="handleLogout()" style="width:100%; margin-top: 15px;">🔒 Disconnect Account Session</button>
             </div>
         </div>
 
@@ -197,12 +202,10 @@
         </div>
     </div>
 </div><script>
-    <script>
-    let wallet = 0.00; // Dynamically tracks active balance values for new users
+    let wallet = 0.00; 
     let quizIndex = 0, quizScore = 0;
     let lexIndex = 0, lexScore = 0, lexTimer = null, lexTimeLeft = 8;
     
-    // TTT GAME STATE CONFIGURATIONS
     let tttCount = 1, tttWins = 0, tttBoard = ["","","","","","","","",""], tttActive = true;
     const tttProfiles = ["Easy", "Easy", "Medium", "Hard", "Hard"];
 
@@ -235,8 +238,7 @@
         { options: ["License", "Lisence", "Licence"], correct: 0 },
         { options: ["Receipt", "Reciept", "Receit"], correct: 0 },
         { options: ["Tomorrow", "To-morrow", "Tommorow"], correct: 0 } 
-    ];// DYNAMIC ACCOUNT REGISTRATION HANDLER
-    function handleRegistration() {
+    ];function handleRegistration() {
         const name = document.getElementById('regName').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const phone = document.getElementById('regPhone').value.trim();
@@ -247,15 +249,24 @@
             return; 
         }
         
-        // Dynamically insert captured details directly into Profile UI containers
         document.getElementById('profNameDisplay').innerText = name;
         document.getElementById('profPhone').innerText = phone;
         document.getElementById('profEmail').innerText = email;
         document.getElementById('walletBal').innerText = wallet.toFixed(2);
         
-        // Hide login wall and slide open interactive options panel
         document.getElementById('authPanel').style.display = 'none';
         document.getElementById('mainDashboard').style.display = 'block';
+    }
+
+    function handleLogout() {
+        document.getElementById('regName').value = '';
+        document.getElementById('regEmail').value = '';
+        document.getElementById('regPhone').value = '';
+        document.getElementById('regPass').value = '';
+        
+        document.getElementById('mainDashboard').style.display = 'none';
+        document.getElementById('authPanel').style.display = 'block';
+        alert("Session disconnected safely.");
     }
 
     function switchTab(tab) {
@@ -277,7 +288,6 @@
         alert(`Request Dispatched! Total requested: KSh ${amt.toFixed(2)}. Net funds processed to your mobile wallet after platform fee parameters.`);
     }
 
-    // 1. BRAIN CHALLENGE SYSTEM
     function startBrainQuiz() {
         quizIndex = 0; quizScore = 0;
         document.getElementById('quizEngine').style.display = 'block';
@@ -302,7 +312,6 @@
         });
     }
 
-    // 2. TIC-TAC-TOE MATRIX ENGINE
     function startTicTacToeGame() {
         tttCount = 1; tttWins = 0;
         document.getElementById('tttEngine').style.display = 'block';
@@ -337,7 +346,7 @@
     }
 
     function checkWin(p) {
-        const ways = [,,,,,,,];
+        const ways = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         return ways.some(w => w.every(i => tttBoard[i]===p));
     }
 
@@ -352,7 +361,6 @@
         }
     }
 
-    // 3. LEXICAL SYNTAX VERIFIER
     function startLexicalQuiz() {
         lexIndex = 0; lexScore = 0;
         document.getElementById('lexicalEngine').style.display = 'block';
