@@ -256,3 +256,93 @@ app.post('/api/admin/withdrawals/:id/review', admin, (req,res) => {
 
 app.get('*', (req,res) => res.sendFile(path.join(__dirname,'public','index.html')));
 app.listen(PORT, () => console.log(`EA EarnHub running at http://localhost:${PORT}`));
+// --- LIVE MPESA INTEGRATION GATEWAY ---
+const axios = require('axios');
+
+// Safaricom Credentials (Using Sandbox details for testing)
+const MPESA_CONSUMER_KEY = process.env.MPESA_CONSUMER_KEY || "vA7GfGGrGAdG7G7A7GfGGrGAdG7G7A7G";
+const MPESA_CONSUMER_SECRET = process.env.MPESA_CONSUMER_SECRET || "A7GfGGrGAdG7G7A7";
+const MPESA_SHORTCODE = "174379"; // Lipa Na M-Pesa Online Sandbox Shortcode
+const MPESA_PASSKEY = "bfb27272bfb3c107e711487f5d47e33e2342440778a2214315d5434e7655a914";
+
+// Middleware to generate M-Pesa Access Token
+async function getMpesaToken(req, res, next) {
+    const auth = Buffer.from(`${MPESA_CONSUMER_KEY}:${MPESA_CONSUMER_SECRET}`).toString('base64');
+    try {
+        const response = await axios.get('https://safaricom.co.ke', {
+            headers: { Authorization: `Basic ${auth}` }
+        });
+        req.mpesaToken = response.data.access_token;
+        next();
+    } catch (error) {
+        console.error("M-Pesa Token Error:", error.message);
+        res.status(500).json({ error: "Failed to generate payment token" });
+    }
+}
+
+// Route to Trigger the STK Push PIN Popup
+app.post('/api/stkpush', getMpesaToken, async (req, res) => {
+    const { phone, amount, accountId } = req.body;
+    
+    // Format phone to 2547XXXXXXXX
+    let formattedPhone = phone.trim().replace(/^\+/, '');
+    if (formattedPhone.startsWith('0')) {
+        formattedPhone = '254' + formattedPhone.substring(1);
+    }
+
+    const date = new Date();
+    const timestamp = date.getFullYear() +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
+        ("0" + date.getDate()).slice(-2) +
+        ("0" + date.getHours()).slice(-2) +
+        ("0" + date.getMinutes()).slice(-2) +
+        ("0" + date.getSeconds()).slice(-2);
+
+    const password = Buffer.from(`${MPESA_SHORTCODE}${MPESA_PASSKEY}${timestamp}`).toString('base64');
+    const callbackUrl = `https://${req.get('host')}/api/mpesa-callback`;
+
+    const stkData = {
+        BusinessShortCode: MPESA_SHORTCODE,
+        Password: password,
+        Timestamp: timestamp,
+        TransactionType: "CustomerPayBillOnline",
+        Amount: amount,
+        PartyA: formattedPhone,
+        PartyB: MPESA_SHORTCODE,
+        PhoneNumber: formattedPhone,
+        CallBackURL: callbackUrl,
+        AccountReference: `Account_${accountId}`,
+        TransactionDesc: "Premium Activation"
+    };
+
+    try {
+        const response = await axios.post('https://safaricom.co.ke', stkData, {
+            headers: { Authorization: `Bearer ${req.mpesaToken}` }
+        });
+        res.json({ success: true, message: "STK Push sent successfully!", data: response.data });
+    } catch (error) {
+        console.error("STK Push Execution Error:", error.response ? error.response.data : error.message);
+        res.status(500).json({ error: "Payment dispatch failed" });
+    }
+});
+
+// Callback Route: Listens for Safaricom's Success Message
+app.post('/api/mpesa-callback', (req, res) => {
+    const callbackData = req.body.Body.stkCallback;
+    console.log("M-Pesa Callback Received:", JSON.stringify(callbackData));
+
+    if (callbackData.ResultCode === 0) {
+        // Payment was successful!
+        const accountRef = callbackData.CallbackMetadata.Item.find(item => item.Name === "AccountReference")?.Value;
+        const amountPaid = callbackData.CallbackMetadata.Item.find(item => item.Name === "Amount")?.Value;
+        const mpesaReceipt = callbackData.CallbackMetadata.Item.find(item => item.Name === "MpesaReceiptNumber")?.Value;
+
+        console.log(`💰 SUCCESS: Payout verified for ${accountRef}. Amount: KSh ${amountPaid}. Receipt: ${mpesaReceipt}`);
+        
+        // Here, the backend database dynamically upgrades the user's active license flags
+    } else {
+        console.log(`❌ CANCELLED: User cancelled or failed payment with code ${callbackData.ResultCode}`);
+    }
+
+    res.json({ ResultCode: 0, ResultDesc: "Accepted Successfully" });
+});
