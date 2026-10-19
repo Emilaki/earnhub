@@ -1,7 +1,7 @@
 {
-  "name": "ea-earnhub",
+  "name": "earnhub-platform",
   "version": "1.0.0",
-  "description": "EA EarnHub task and rewards platform MVP",
+  "description": "EA EarnHub Pro Platform Production Build",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -12,12 +12,11 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^11.3.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
-    "jsonwebtoken": "^9.0.2"
-  },
-  "axios": "^1.6.0"
+    "jsonwebtoken": "^9.0.2",
+    "axios": "^1.6.0"
+  }
 }
