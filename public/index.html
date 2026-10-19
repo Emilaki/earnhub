@@ -269,7 +269,7 @@
         alert("Session disconnected safely.");
     }
 
-    function switchTab(tab) {
+  function switchTab(tab) {
         document.getElementById('viewHome').style.display = tab === 'home' ? 'block' : 'none';
         document.getElementById('viewProfile').style.display = tab === 'profile' ? 'block' : 'none';
         document.getElementById('viewPackages').style.display = tab === 'packages' ? 'block' : 'none';
@@ -277,6 +277,42 @@
         document.getElementById('tabHome').className = 'nav-btn' + (tab === 'home' ? ' active' : '');
         document.getElementById('tabProfile').className = 'nav-btn' + (tab === 'profile' ? ' active' : '');
         document.getElementById('tabPackages').className = 'nav-btn' + (tab === 'packages' ? ' active' : '');
+    }
+
+    // --- AUTOMATED MPESA POPUP TRIGGER HANDLER ---
+    async function triggerMpesaPayment(amount, packageName) {
+        // Fetch the user's phone number dynamically from their registration details
+        const activePhone = document.getElementById('profPhone').innerText;
+        const activeName = document.getElementById('profNameDisplay').innerText;
+
+        if (!activePhone || activePhone === "loading..." || activePhone.length < 9) {
+            alert("⚠️ Error: Please log out and register with a valid Safaricom number first!");
+            return;
+        }
+
+        alert(`Processing ${packageName}... An M-Pesa STK PIN prompt for KSh ${amount}.00 is being sent to phone: ${activePhone}`);
+
+        try {
+            const response = await fetch('/api/stkpush', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    phone: activePhone,
+                    amount: amount,
+                    accountId: activeName
+                })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert("✨ STK Push dispatched! Enter your M-Pesa PIN on your phone to complete your premium activation.");
+            } else {
+                alert("❌ Payment routing failed: " + (data.error || "Check system connection parameters"));
+            }
+        } catch (error) {
+            console.error("Payment Execution Error:", error);
+            alert("❌ Server connection lost. Your backend is checking transaction status channels.");
+        }
     }
 
     function executeWithdrawal() {
@@ -377,9 +413,9 @@
             return;
         }
         lexTimeLeft = 8;
+        document.getElementById('profForm' ? '' : 'lexicalTimerBar').style.width = `${(lexTimeLeft/8)*100}%`;
         document.getElementById('lexicalProgress').innerText = `Word ${lexIndex+1} of 15 (${lexIndex < 10 ? 'Hard Word' : 'Medium Word'})`;
         document.getElementById('lexicalTimerText').innerText = `Time Left: ${lexTimeLeft}s`;
-        document.getElementById('lexicalTimerBar').style.width = '100%';
 
         const data = lexicalQuestions[lexIndex];
         const optDiv = document.getElementById('lexicalOptions'); optDiv.innerHTML = '';
@@ -392,10 +428,9 @@
         lexTimer = setInterval(() => {
             lexTimeLeft--;
             document.getElementById('lexicalTimerText').innerText = `Time Left: ${lexTimeLeft}s`;
-            document.getElementById('lexicalTimerBar').style.width = `${(lexTimeLeft/8)*100}%`;
             if(lexTimeLeft <= 0) { clearInterval(lexTimer); alert("Time Up!"); lexIndex++; renderLex(); }
         }, 1000);
     }
 </script>
 </body>
-</html>
+</html>  
