@@ -10,7 +10,8 @@
         .wrapper { max-width: 700px; margin: 0 auto; }
         .card { background: var(--panel-bg); border: 1px solid var(--border-green); border-radius: 12px; padding: 24px; margin-bottom: 24px; position: relative; }
         h2, h3, h4 { color: var(--accent-lime); margin-top: 0; }
-        input { width: 100%; padding: 12px; margin: 8px 0 16px 0; background: var(--bg-base); border: 1px solid var(--border-green); border-radius: 8px; color: white; box-sizing: border-box; }
+        label { font-weight: bold; display: block; margin-top: 10px; color: #cbd5e1; font-size: 0.9rem; }
+        input { width: 100%; padding: 12px; margin: 6px 0 14px 0; background: var(--bg-base); border: 1px solid var(--border-green); border-radius: 8px; color: white; box-sizing: border-box; }
         .btn { background: var(--border-green); color: white; border: none; padding: 14px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; width: 100%; text-align: center; box-sizing: border-box; font-size: 1rem; text-decoration: none; }
         .btn-lime { background: var(--accent-lime); color: #000; }
         .btn:hover { opacity: 0.9; }
@@ -32,7 +33,29 @@
 </head>
 <body>
 <div class="wrapper">
-    <div id="mainDashboard">
+
+    <!-- GLOBAL ACCESS GATEWAY -->
+    <div id="authPanel" class="card">
+        <h2>Create Account — EA EarnHub Pro</h2>
+        <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">⚠️ Enter valid details to create your secure earning profile and track your withdrawal ledger.</p>
+        
+        <label>Full Name</label>
+        <input type="text" id="regName" placeholder="Enter your full name...">
+
+        <label>Email Address</label>
+        <input type="email" id="regEmail" placeholder="name@example.com">
+
+        <label>Registered Phone Number</label>
+        <input type="tel" id="regPhone" placeholder="e.g. 0712345678">
+
+        <label>Secure Password</label>
+        <input type="password" id="regPass" placeholder="••••••••">
+
+        <button class="btn btn-lime" onclick="handleRegistration()">Create Account & Enter Platform</button>
+    </div>
+
+    <!-- MAIN INTERACTIVE PORTAL (HIDDEN BY DEFAULT UNTIL SIGN UP) -->
+    <div id="mainDashboard" style="display: none;">
         <div class="menu-grid">
             <div class="nav-btn active" id="tabHome" onclick="switchTab('home')">Home</div>
             <div class="nav-btn" id="tabProfile" onclick="switchTab('profile')">Profile</div>
@@ -43,6 +66,7 @@
             <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #cbd5e1;">
                 <strong>Withdrawal Instruction:</strong> When a user withdraws <strong>KSh 50.00</strong>, they leave with exactly <strong>KSh 42.00</strong> into custody after deductions. 
             </p>
+        </div>
         </div><!-- VIEW A: HOME PLAY PORTALS -->
         <div id="viewHome">
             
@@ -173,7 +197,8 @@
         </div>
     </div>
 </div><script>
-    let wallet = 150.00;
+    <script>
+    let wallet = 0.00; // Dynamically tracks active balance values for new users
     let quizIndex = 0, quizScore = 0;
     let lexIndex = 0, lexScore = 0, lexTimer = null, lexTimeLeft = 8;
     
@@ -183,10 +208,10 @@
 
     const quizQuestions = [
         { q: "Easy 1: Solve the multipliers sequence: 5 x 4 + 3", a: ["23", "35", "20"], c: 0 },
-        { q: "Easy 2: Primary layout protocol for hosting visual sites:", a: ["FTP", "HTTP", "SMTP"], c: 1 },
+        { q: "Easy 2: Primary protocol for hosting visual sites:", a: ["FTP", "HTTP", "SMTP"], c: 1 },
         { q: "Medium 1: Element carrying an atomic count of 6 protons:", a: ["Oxygen", "Nitrogen", "Carbon"], c: 2 },
         { q: "Medium 2: Compute the array median index value:", a: ["12", "14", "9"], c: 0 },
-        { q: "Medium 3: Atmospheric layout housing protective ozone layers:", a: ["Troposphere", "Stratosphere", "Mesosphere"], c: 1 },
+        { q: "Medium 3: Layout housing protective ozone layers:", a: ["Troposphere", "Stratosphere", "Mesosphere"], c: 1 },
         { q: "Medium 4: Constraint forcing database unique column fields:", a: ["Foreign Key", "Primary Key", "Index Link"], c: 1 },
         { q: "Medium 5: Core table salt chemical formula:", a: ["NaCl", "KCl", "HCl"], c: 0 },
         { q: "Medium 6: System metric tracking velocity modifications over time:", a: ["Speed", "Displacement", "Velocity change"], c: 2 },
@@ -210,7 +235,28 @@
         { options: ["License", "Lisence", "Licence"], correct: 0 },
         { options: ["Receipt", "Reciept", "Receit"], correct: 0 },
         { options: ["Tomorrow", "To-morrow", "Tommorow"], correct: 0 } 
-    ];
+    ];// DYNAMIC ACCOUNT REGISTRATION HANDLER
+    function handleRegistration() {
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const pass = document.getElementById('regPass').value.trim();
+        
+        if(!name || !email || !phone || !pass) { 
+            alert("Please accurately complete all registration tracks!"); 
+            return; 
+        }
+        
+        // Dynamically insert captured details directly into Profile UI containers
+        document.getElementById('profNameDisplay').innerText = name;
+        document.getElementById('profPhone').innerText = phone;
+        document.getElementById('profEmail').innerText = email;
+        document.getElementById('walletBal').innerText = wallet.toFixed(2);
+        
+        // Hide login wall and slide open interactive options panel
+        document.getElementById('authPanel').style.display = 'none';
+        document.getElementById('mainDashboard').style.display = 'block';
+    }
 
     function switchTab(tab) {
         document.getElementById('viewHome').style.display = tab === 'home' ? 'block' : 'none';
@@ -291,7 +337,7 @@
     }
 
     function checkWin(p) {
-        const ways = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        const ways = [,,,,,,,];
         return ways.some(w => w.every(i => tttBoard[i]===p));
     }
 
