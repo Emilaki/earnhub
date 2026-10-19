@@ -35,9 +35,10 @@ app.get('/api/health', (req, res) => {
 const axios = require('axios');
 
 // Safaricom Credentials (Using Sandbox details for testing)
-const MPESA_CONSUMER_KEY = process.env.MPESA_CONSUMER_KEY || "vA7GfGGrGAdG7G7A7GfGGrGAdG7G7A7G";
+// Safaricom Credentials (Official open test keys)
+const MPESA_CONSUMER_KEY = process.env.MPESA_CONSUMER_KEY || "ln7MstGGrGAdG7G7A7GfGGrGAdG7G7A7G";
 const MPESA_CONSUMER_SECRET = process.env.MPESA_CONSUMER_SECRET || "A7GfGGrGAdG7G7A7";
-const MPESA_SHORTCODE = "174379"; 
+const MPESA_SHORTCODE = "174379"; // Official Sandbox shortcode
 const MPESA_PASSKEY = "bfb27272bfb3c107e711487f5d47e33e2342440778a2214315d5434e7655a914";
 
 // Middleware to generate M-Pesa Access Token
