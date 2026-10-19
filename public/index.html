@@ -145,8 +145,7 @@
                 <button class="btn btn-red" onclick="handleLogout()" style="width:100%; margin-top: 15px;">🔒 Disconnect Account Session</button>
             </div>
         </div>
-
-        <!-- VIEW C: ALL PREMIUM AND VIP ALLOCATIONS -->
+<!-- VIEW C: ALL PREMIUM AND VIP ALLOCATIONS -->
         <div id="viewPackages" style="display: none;">
             <div class="card">
                 <h2>🚀 Premium Acceleration Packages (2-Day Term)</h2>
@@ -157,19 +156,19 @@
                         <span class="badge badge-premium">KSh 80</span>
                         <h3>Brain Premium</h3>
                         <p style="font-size:0.85rem;">Access the Brain Assessment 5 times daily at any hour with zero scheduled system blocks. Expires in 2 days.</p>
-                        <button class="btn" style="width:100%; margin-top:10px;" onclick="alert('Premium enabled for Brain Assessment.')">Purchase Tier</button>
+                        <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(80, 'Brain Premium')">Purchase Tier</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); margin:0;">
                         <span class="badge badge-premium">KSh 150</span>
                         <h3>Matrix Premium</h3>
                         <p style="font-size:0.85rem;">Increases allocation settings to grant 4 full interactive game sequences daily. Expires in 2 days.</p>
-                        <button class="btn" style="width:100%; margin-top:10px;" onclick="alert('Premium enabled for Tic-Tac-Toe.')">Purchase Tier</button>
+                        <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(150, 'Matrix Premium')">Purchase Tier</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); margin:0;">
                         <span class="badge badge-premium">KSh 189</span>
                         <h3>Lexical Premium</h3>
                         <p style="font-size:0.85rem;">Grants access to run 2 full verification word sets daily to accelerate metrics. Expires in 2 days.</p>
-                        <button class="btn" style="width:100%; margin-top:10px;" onclick="alert('Premium enabled for Lexical Verifier.')">Purchase Tier</button>
+                        <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(189, 'Lexical Premium')">Purchase Tier</button>
                     </div>
                 </div>
             </div>
@@ -183,25 +182,24 @@
                         <span class="badge badge-vip">KSh 243</span>
                         <h3>VIP Brain Stream</h3>
                         <p style="font-size:0.85rem;">3 complete high-yield challenge sets delivered daily across an extended 5-day cycle.</p>
-                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="alert('VIP active for 5 days.')">Activate VIP</button>
+                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(243, 'VIP Brain Stream')">Activate VIP</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
                         <span class="badge badge-vip">KSh 422</span>
                         <h3>VIP Matrix Hub</h3>
                         <p style="font-size:0.85rem;">Run 2 full game series matrices daily against our backend AI models over a solid 5-day lifespan.</p>
-                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="alert('VIP active for 5 days.')">Activate VIP</button>
+                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(422, 'VIP Matrix Hub')">Activate VIP</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
                         <span class="badge badge-vip">KSh 650</span>
                         <h3>VIP Lexical Engine</h3>
                         <p style="font-size:0.85rem;">Deploys 2 top-tier extreme spelling assessment sets daily for an extended 5-day validation run.</p>
-                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="alert('VIP active for 5 days.')">Activate VIP</button>
+                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(650, 'VIP Lexical Engine')">Activate VIP</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div><script>
+    <script>
     let wallet = 0.00; 
     let quizIndex = 0, quizScore = 0;
     let lexIndex = 0, lexScore = 0, lexTimer = null, lexTimeLeft = 8;
