@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA EarnHub Pro Platform</title>
+    <style>
+        :root { --bg-base: #090f0c; --panel-bg: #111d17; --border-green: #1d714d; --text-light: #f6f8f3; --accent-lime: #d9f36b; --alert-red: #ef4444; }
+        body { font-family: sans-serif; background: var(--bg-base); color: var(--text-light); margin: 0; padding: 20px; }
+        .wrapper { max-width: 700px; margin: 0 auto; }
+        .card { background: var(--panel-bg); border: 1px solid var(--border-green); border-radius: 12px; padding: 24px; margin-bottom: 24px; position: relative; }
+        h2, h3 { color: var(--accent-lime); margin-top: 0; }
+        .btn { background: var(--border-green); color: white; border: none; padding: 14px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-block; width: 100%; text-align: center; box-sizing: border-box; font-size: 1rem; }
+        .btn-lime { background: var(--accent-lime); color: #000; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+        .nav-btn { background: #162a20; border: 1px solid var(--border-green); color: white; padding: 10px; cursor: pointer; text-align: center; border-radius: 6px; font-weight: bold; }
+        .nav-btn.active { background: var(--accent-lime); color: black; }
+        .badge { position: absolute; top: 15px; right: 15px; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; background: var(--accent-lime); color: black; }
+        .timer-bar { height: 6px; background: var(--alert-red); width: 100%; border-radius: 3px; margin-bottom: 15px; }
+        .option-item { background: var(--bg-base); padding: 12px; border: 1px solid var(--border-green); border-radius: 6px; cursor: pointer; margin-bottom: 8px; }
+        .option-item:hover { border-color: var(--accent-lime); }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div id="mainDashboard">
+        <div class="menu-grid">
+            <div class="nav-btn active" id="tabHome" onclick="switchTab('home')">Home</div>
+            <div class="nav-btn" id="tabProfile" onclick="switchTab('profile')">Profile</div>
+            <div class="nav-btn" id="tabPackages" onclick="switchTab('packages')">Packages</div>
+        </div>
+        <div class="card" style="border-color: var(--accent-lime); background: #16241d;">
+            <h3>📋 System Menu Regulations</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">
+                Withdrawal Rule: Withdrawing <strong>KSh 50.00</strong> pays out exactly <strong>KSh 42.00</strong> into custody. Min: KSh 100 | Max: KSh 1000 daily.
+            </p>
+        </div><div id="viewHome">
+            <div class="card">
+                <span class="badge">KSh 20</span>
+                <h2>1. Brain Challenge (Pass >= 7)</h2>
+                <p>Available: 06-08 AM | 01-03 PM | 11 PM-01 AM.</p>
+                <button class="btn btn-lime" onclick="startBrainQuiz()">Launch Assessment</button>
+                <div id="quizEngine" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-green);">
+                    <h3 id="quizQuestion">Loading...</h3>
+                    <div id="quizOptions"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="badge">KSh 100</span>
+                <h2>2. Lexical Syntax Verifier</h2>
+                <p>Chunga to choose correct word! 15 total words (10 hard, 5 medium). Strict **8 seconds per question** limit.</p>
+                <button class="btn btn-lime" onclick="startLexicalQuiz()">Run Lexical Audit</button>
+                <div id="lexicalEngine" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-green);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                        <h4 id="lexicalProgress" style="margin:0;">Word 1 of 15</h4>
+                        <span id="lexicalTimerText" style="color:var(--alert-red); font-weight:bold;">Time Left: 8s</span>
+                    </div>
+                    <div id="lexicalTimerBar" class="timer-bar"></div>
+                    <div id="lexicalOptions"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="viewProfile" style="display: none;">
+            <div class="card">
+                <h2>User Profile Analytics</h2>
+                <p><strong>Account Holder Name:</strong> Boss Myles Otieno</p>
+                <p><strong>Linked Email Account:</strong> emilakiboss@gmail.com</p>
+                <p><strong>Verified Mobile Number:</strong> 0721647355</p>
+                <hr style="border-color: var(--border-green);">
+                <h3>Available Balance Currency</h3>
+                <h1 style="font-size: 2.8rem; margin: 10px 0; color: var(--accent-lime);">KSh <span id="walletBal">150.00</span></h1>
+            </div>
+        </div>
+
+        <div id="viewPackages" style="display: none;">
+            <div class="card">
+                <h2>🚀 Premium Acceleration Packages</h2>
+                <p>Brain Premium (KSh 80 - 2 Days) | Lexical Premium (KSh 189 - 2 Days)</p>
+            </div>
+        </div>
+    </div>
+</div><script>
+    let wallet = 150.00;
+    let quizIndex = 0, quizScore = 0;
+    let lexIndex = 0, lexScore = 0, lexTimer = null, lexTimeLeft = 8;
+
+    const quizQuestions = [
+        { q: "Easy: 5 x 4 + 3?", a: ["23", "35", "20"], c: 0 },
+        { q: "Medium: Carbon atomic proton count?", a: ["4", "5", "6"], c: 2 },
+        { q: "Hard: Derivative of 3x^2 + 5x?", a: ["6x + 5", "3x + 5", "6x"], c: 0 }
+    ];
+
+    const lexicalQuestions = [
+        { options: ["Anemone", "Anemonee", "Anamone"], correct: 0 },
+        { options: ["Inoculate", "Innoculate", "Inocculate"], correct: 0 },
+        { options: ["Conscientious", "Conscisntious", "Consientious"], correct: 0 },
+        { options: ["Minuscule", "Miniscul", "Minuscual"], correct: 0 },
+        { options: ["Supersede", "Supercede", "Superseed"], correct: 0 },
+        { options: ["Pharaoh", "Pharoah", "Phaoroh"], correct: 0 },
+        { options: ["Sacrilegious", "Sacreligious", "Sacriligious"], correct: 0 },
+        { options: ["Garrulous", "Garulous", "Garrullous"], correct: 0 },
+        { options: ["Idiosyncrasy", "Ideosyncrasy", "Idiosyncracy"], correct: 0 },
+        { options: ["Ophthalmologist", "Opthamologist", "Ophthalmollogist"], correct: 0 },
+        { options: ["Calendar", "Calender", "Calandar"], correct: 0 },
+        { options: ["Foreign", "Foriegn", "Foreing"], correct: 0 },
+        { options: ["License", "Lisence", "Licence"], correct: 0 },
+        { options: ["Receipt", "Reciept", "Receit"], correct: 0 },
+        { options: ["Tomorrow", "To-morrow", "Tommorow"], correct: 0 }
+    ];
+
+    function switchTab(tab) {
+        document.getElementById('viewHome').style.display = tab === 'home' ? 'block' : 'none';
+        document.getElementById('viewProfile').style.display = tab === 'profile' ? 'block' : 'none';
+        document.getElementById('viewPackages').style.display = tab === 'packages' ? 'block' : 'none';
+        document.getElementById('tabHome').className = 'nav-btn' + (tab === 'home' ? ' active' : '');
+        document.getElementById('tabProfile').className = 'nav-btn' + (tab === 'profile' ? ' active' : '');
+        document.getElementById('tabPackages').className = 'nav-btn' + (tab === 'packages' ? ' active' : '');
+    }
+
+    function startBrainQuiz() {
+        quizIndex = 0; quizScore = 0;
+        document.getElementById('quizEngine').style.display = 'block';
+        renderQuiz();
+    }
+
+    function renderQuiz() {
+        if(quizIndex >= quizQuestions.length) {
+            document.getElementById('quizEngine').style.display = 'none';
+            if(quizScore >= 2) { wallet += 20; alert(`🎉 Passed! Score: ${quizScore}/3. KSh 20 added.`); }
+            else { alert("❌ Failed. Score too low."); }
+            document.getElementById('walletBal').innerText = wallet.toFixed(2);
+            return;
+        }
+        const data = quizQuestions[quizIndex];
+        document.getElementById('quizQuestion').innerText = data.q;
+        const optDiv = document.getElementById('quizOptions'); optDiv.innerHTML = '';
+        data.a.forEach((o, i) => {
+            const btn = document.createElement('div'); btn.className = 'option-item'; btn.innerText = o;
+            btn.onclick = () => { if(i === data.c) quizScore++; quizIndex++; renderQuiz(); };
+            optDiv.appendChild(btn);
+        });
+    }
+
+    function startLexicalQuiz() {
+        lexIndex = 0; lexScore = 0;
+        document.getElementById('lexicalEngine').style.display = 'block';
+        renderLex();
+    }
+
+    function renderLex() {
+        clearInterval(lexTimer);
+        if(lexIndex >= lexicalQuestions.length) {
+            document.getElementById('lexicalEngine').style.display = 'none';
+            if (lexScore >= 13) { wallet += 100; alert(`🎉 Passed! Score: ${lexScore}/15. KSh 100 added.`); }
+            else { alert(`❌ Failed. Score: ${lexScore}/15. Below 13.`); }
+            document.getElementById('walletBal').innerText = wallet.toFixed(2);
+            return;
+        }
+        lexTimeLeft = 8;
+        document.getElementById('lexicalProgress').innerText = `Word ${lexIndex+1} of 15`;
+        document.getElementById('lexicalTimerText').innerText = `Time Left: ${lexTimeLeft}s`;
+        
+        const data = lexicalQuestions[lexIndex];
+        const optDiv = document.getElementById('lexicalOptions'); optDiv.innerHTML = '';
+        data.options.forEach((o, i) => {
+            const btn = document.createElement('div'); btn.className = 'option-item'; btn.innerText = o;
+            btn.onclick = () => { clearInterval(lexTimer); if(i === data.correct) lexScore++; lexIndex++; renderLex(); };
+            optDiv.appendChild(btn);
+        });
+
+        lexTimer = setInterval(() => {
+            lexTimeLeft--;
+            document.getElementById('lexicalTimerText').innerText = `Time Left: ${lexTimeLeft}s`;
+            if(lexTimeLeft <= 0) { clearInterval(lexTimer); alert("Time Up!"); lexIndex++; renderLex(); }
+        }, 1000);
+    }
+</script>
+</body>
+</html>
