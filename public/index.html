@@ -55,7 +55,6 @@
 
         <button class="btn btn-lime" onclick="handleRegistration()">Create Account & Enter Platform</button>
     </div>
-
     <!-- MAIN PLATFORM INTERACTIVE DASHBOARD CONTAINER -->
     <div id="mainDashboard" style="display: none;">
         <div class="menu-grid">
@@ -70,6 +69,7 @@
                 <strong>Withdrawal Instruction:</strong> When a user withdraws <strong>KSh 50.00</strong>, they leave with exactly <strong>KSh 42.00</strong> into custody after deductions. Min: KSh 100.
             </p>
         </div>
+
         <!-- VIEW A: HOME PLAY PORTALS -->
         <div id="viewHome">
             <div class="card">
@@ -222,7 +222,8 @@
         { options: ["Receipt", "Reciept", "Receit"], correct: 0 },
         { options: ["Tomorrow", "To-morrow", "Tommorow"], correct: 0 } 
     ];
-   function handleRegistration() {
+
+    function handleRegistration() {
         const name = document.getElementById('regName').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const phone = document.getElementById('regPhone').value.trim();
@@ -370,48 +371,40 @@
         return ways.some(w => w.every(i => tttBoard[i]===p));
     }
 
-    function endMatch(res) {
-        if(res==="win") { tttWins++; alert("✅ Won this match!"); } else if(res==="loss") { alert("❌ Computer won this match."); } else { alert("👔 Match ended in a draw."); }
-        tttCount++;
-        if(tttCount <= 5) { initTTT(); } else {
-            document.getElementById('tttEngine').style.display = 'none';
-            if(tttWins >= 3) { wallet += 50; alert(`🎉 Series Won! ${tttWins}/5 victories. KSh 50.00 credited.`); }
-            else { alert(`⚠️ Series Failed. ${tttWins}/5 victories. Minimum 3 required.`); }
-            document.getElementById('walletBal').innerText = wallet.toFixed(2);
-        }
-    }
-
-    function startLexicalQuiz() {
-        lexIndex = 0; lexScore = 0;
-        document.getElementById('lexicalEngine').style.display = 'block';
-        renderLex();
-    }
-
-    function renderLex() {
-        clearInterval(lexTimer);
-        if(lexIndex >= lexicalQuestions.length) {
-            document.getElementById('lexicalEngine').style.display = 'none';
-            if (lexScore >= 13) { wallet += 100; alert(`🎉 Passed! Score: ${lexScore}/15. KSh 100.00 added.`); }
-            else { alert(`❌ Failed. Score: ${lexScore}/15. Requires 13 points.`); }
-            document.getElementById('walletBal').innerText = wallet.toFixed(2);
-            return;
-        }
-        lexTimeLeft = 8;
-        document.getElementById('lexicalProgress').innerText = `Word ${lexIndex+1} of 15 (${lexIndex < 10 ? 'Hard Word' : 'Medium Word'})`;
-
-        const data = lexicalQuestions[lexIndex];
-        const optDiv = document.getElementById('lexicalOptions'); optDiv.innerHTML = '';
-        data.options.forEach((o, i) => {
-            const btn = document.createElement('div'); btn.className = 'option-item'; btn.innerText = o;
-            btn.onclick = () => { clearInterval(lexTimer); if(i === data.correct) lexScore++; lexIndex++; renderLex(); };
-            optDiv.appendChild(btn);
-        });
-
-        lexTimer = setInterval(() => {
-            lexTimeLeft--;
-            if(lexTimeLeft <= 0) { clearInterval(lexTimer); alert("Time Up!"); lexIndex++; renderLex(); }
-        }, 1000);
-    }
-</script>
-</body>
-</html> 
+    function endMatch(res) {if(res==="win") { tttWins++; alert("✅ Won this match!"); } else if(res==="loss") { alert("❌ Computer won this match."); } else { alert("👔 Match ended in a draw."); }
+tttCount++;
+if(tttCount <= 5) { initTTT(); } else {
+document.getElementById('tttEngine').style.display = 'none';
+if(tttWins >= 3) { wallet += 50; alert(🎉 Series Won! ${tttWins}/5 victories. KSh 50.00 credited.); }
+else { alert(⚠️ Series Failed. ${tttWins}/5 victories. Minimum 3 required.); }
+document.getElementById('walletBal').innerText = wallet.toFixed(2);
+}
+}
+function startLexicalQuiz() {
+lexIndex = 0; lexScore = 0;
+document.getElementById('lexicalEngine').style.display = 'block';
+renderLex();
+}
+function renderLex() {
+clearInterval(lexTimer);
+if(lexIndex >= lexicalQuestions.length) {
+document.getElementById('lexicalEngine').style.display = 'none';
+if (lexScore >= 13) { wallet += 100; alert(🎉 Passed! Score: ${lexScore}/15. KSh 100.00 added.); }
+else { alert(❌ Failed. Score: ${lexScore}/15. Requires 13 points.); }
+document.getElementById('walletBal').innerText = wallet.toFixed(2);
+return;
+}
+lexTimeLeft = 8;
+document.getElementById('lexicalProgress').innerText = Word ${lexIndex+1} of 15 (${lexIndex < 10 ? 'Hard Word' : 'Medium Word'});
+const data = lexicalQuestions[lexIndex];
+const optDiv = document.getElementById('lexicalOptions'); optDiv.innerHTML = '';
+data.options.forEach((o, i) => {
+const btn = document.createElement('div'); btn.className = 'option-item'; btn.innerText = o;
+btn.onclick = () => { clearInterval(lexTimer); if(i === data.correct) lexScore++; lexIndex++; renderLex(); };
+optDiv.appendChild(btn);
+});
+lexTimer = setInterval(() => {
+lexTimeLeft--;
+if(lexTimeLeft <= 0) { clearInterval(lexTimer); alert("Time Up!"); lexIndex++; renderLex(); }
+}, 1000);
+}
