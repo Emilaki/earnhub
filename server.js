@@ -33,11 +33,9 @@ app.get('/api/health', (req, res) => {
     res.json({ status: "healthy", timestamp: new Date() });
 });// --- LIVE MPESA INTEGRATION GATEWAY ---
 const axios = require('axios');
-
-// Safaricom Credentials (Using Sandbox details for testing)
-// Safaricom Credentials (Official open test keys)
-const MPESA_CONSUMER_KEY = process.env.MPESA_CONSUMER_KEY || "ln7MstGGrGAdG7G7A7GfGGrGAdG7G7A7G";
-const MPESA_CONSUMER_SECRET = process.env.MPESA_CONSUMER_SECRET || "A7GfGGrGAdG7G7A7";
+// Safaricom Credentials pulling directly from Render Environment Variables
+const MPESA_CONSUMER_KEY = process.env.MPESA_CONSUMER_KEY;
+const MPESA_CONSUMER_SECRET = process.env.MPESA_CONSUMER_SECRET;
 const MPESA_SHORTCODE = "174379"; // Official Sandbox shortcode
 const MPESA_PASSKEY = "bfb27272bfb3c107e711487f5d47e33e2342440778a2214315d5434e7655a914";
 
