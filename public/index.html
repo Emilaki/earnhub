@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-    <script src="https://unpkg.com"></script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EA EarnHub Pro Platform</title>
+    <script src="https://unpkg.com"></script>
     <style>
         :root { --bg-base: #090f0c; --panel-bg: #111d17; --border-green: #1d714d; --text-light: #f6f8f3; --accent-lime: #d9f36b; --alert-red: #ef4444; }
         body { font-family: sans-serif; background: var(--bg-base); color: var(--text-light); margin: 0; padding: 20px; }
@@ -36,10 +36,10 @@
 <body>
 <div class="wrapper">
 
-    <!-- SIGN UP / LOGIN GATEWAY CONTROLLER -->
+    <!-- ACCESS GATEWAY -->
     <div id="authPanel" class="card">
         <h2>Create Account — EA EarnHub Pro</h2>
-        <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">⚠️ Enter valid credentials to instantiate a secure account ledger and profile sequence.</p>
+        <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">⚠️ Enter valid details to track your secure earning profile and mobile checkout ledger.</p>
         
         <label>Full Name</label>
         <input type="text" id="regName" placeholder="Enter your full name...">
@@ -69,43 +69,39 @@
             <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">
                 <strong>Withdrawal Instruction:</strong> When a user withdraws <strong>KSh 50.00</strong>, they leave with exactly <strong>KSh 42.00</strong> into custody after deductions. Min: KSh 100.
             </p>
-        </div><!-- VIEW A: HOME PLAY PORTALS -->
+        </div>
+        <!-- VIEW A: HOME PLAY PORTALS -->
         <div id="viewHome">
-            
-            <!-- PORTAL 1: BRAIN CHALLENGE -->
             <div class="card">
                 <span class="badge">Base: 2 Daily Sets</span>
                 <h2>1. Brain Analytics Challenge</h2>
-                <p><strong>Instructions:</strong> Solve 10 structured questions (3 Hard, 6 Medium, 2 Easy). Pass **7 or above** to earn **KSh 20.00**. Scoring 6 or below notifies failure and yields KSh 0.00.</p>
-                <p style="color: var(--accent-lime); font-size: 0.85rem; font-weight: bold;">⏰ Access Windows: 06:00-08:00 AM | 01:00-03:00 PM | 11:00 PM-01:00 AM.</p>
+                <p><strong>Instructions:</strong> Solve 10 structured questions. Pass **7 or above** to earn **KSh 20.00**.</p>
                 <button class="btn btn-lime" onclick="startBrainQuiz()">Launch Assessment</button>
-                <div id="quizEngine" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-green);">
+                <div id="quizEngine" style="display: none; margin-top: 20px;">
                     <h3 id="quizQuestion">Loading...</h3>
                     <div id="quizOptions"></div>
                 </div>
             </div>
 
-            <!-- PORTAL 2: TIC-TAC-TOE AI ENGINE -->
             <div class="card">
                 <span class="badge">Base: 2 Games Daily</span>
                 <h2>2. Tic-Tac-Toe AI Engine</h2>
-                <p><strong>Instructions:</strong> Play a series of 5 interactive games against the computer (2 Hard, 1 Medium, 2 Easy profiles). Win **at least 3 matches** out of 5 to earn **KSh 50.00**. Otherwise, you lose. Available twice a day.</p>
+                <p>Win **at least 3 matches** out of 5 to earn **KSh 50.00**.</p>
                 <button class="btn btn-lime" onclick="startTicTacToeGame()">Engage Computer Matrix</button>
-                <div id="tttEngine" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-green); text-align: center;">
+                <div id="tttEngine" style="display: none; margin-top: 20px; text-align: center;">
                     <h3 id="tttSeriesStatus">Match 1 of 5</h3>
                     <div class="ttt-grid" id="tttGrid"></div>
                     <p id="tttMatchStatus" style="font-weight:bold; color:var(--accent-lime);"></p>
                 </div>
             </div>
 
-            <!-- PORTAL 3: LEXICAL SYNTAX VERIFIER -->
             <div class="card">
                 <span class="badge">Base: 1 Daily Chance</span>
                 <h2>3. Lexical Syntax Verifier</h2>
-                <p><strong>Instructions:</strong> Chunga to choose correct spelt word! Analyze 15 total words (**first 10 extremely hard**, 5 medium). Strict **8 seconds per question** limit. Score **13 or above** to capture **KSh 100.00**.</p>
+                <p>Analyze 15 words. Score **13 or above** to capture **KSh 100.00**.</p>
                 <button class="btn btn-lime" onclick="startLexicalQuiz()">Run Lexical Audit</button>
-                <div id="lexicalEngine" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-green);">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
+                <div id="lexicalEngine" style="display: none; margin-top: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
                         <h4 id="lexicalProgress" style="margin:0;">Word 1 of 15</h4>
                         <span id="lexicalTimerText" style="color:var(--alert-red); font-weight:bold;">Time Left: 8s</span>
                     </div>
@@ -115,7 +111,7 @@
             </div>
         </div>
 
-        <!-- VIEW B: PROFILE HUB & WITHDRAWAL ENGINE -->
+        <!-- VIEW B: PROFILE HUB -->
         <div id="viewProfile" style="display: none;">
             <div class="card">
                 <h2>User Profile Analytics</h2>
@@ -126,49 +122,37 @@
                 <h3>Available Balance Currency</h3>
                 <h1 style="font-size: 2.8rem; margin: 10px 0; color: var(--accent-lime);">KSh <span id="walletBal">0.00</span></h1>
                 
-                <!-- FUND OUTBOUND SETTLEMENT PANEL -->
                 <div style="margin-top: 20px; padding: 15px; background: var(--bg-base); border-radius: 8px; border: 1px solid var(--border-green);">
                     <h4>Initialize Fund Outbound Settlement</h4>
-                    <p style="font-size: 0.85rem; color: #cbd5e1;">Limits: Min KSh 100.00 | Max KSh 1,000.00 daily rules apply.</p>
-                    <label style="font-weight:bold; font-size:0.9rem; display:block; margin-bottom:5px;">Amount to Withdraw (KSh)</label>
                     <input type="number" id="withdrawAmt" placeholder="Enter amount to extract...">
                     <button class="btn btn-lime" onclick="executeWithdrawal()" style="width:100%; margin-top: 5px;">Submit Settlement Request</button>
                 </div>
 
-                <!-- CONTACT SUPPORT MODULE -->
-                <div style="margin-top: 20px; text-align:center;">
-                    <p style="font-size:0.9rem; color:#cbd5e1;">Need system assistance? Reach out to support operations instantly:</p>
-                    <button class="btn" style="width:auto; padding:10px 20px; margin-bottom: 15px;" onclick="alert('Support channels activated! Contacting portal ledger desk at support@earnhub-verified.co.ke')">📬 Contact Us</button>
-                </div>
-
-                <!-- SECURE SYSTEM LOGOUT MODULE -->
-                <hr style="border-color: var(--border-green);">
-                <button class="btn btn-red" onclick="handleLogout()" style="width:100%; margin-top: 15px;">🔒 Disconnect Account Session</button>
+                <button class="btn btn-red" onclick="handleLogout()" style="width:100%; margin-top: 25px;">🔒 Disconnect Account Session</button>
             </div>
         </div>
-<!-- VIEW C: ALL PREMIUM AND VIP ALLOCATIONS -->
+
+        <!-- VIEW C: ALL PREMIUM AND VIP ALLOCATIONS -->
         <div id="viewPackages" style="display: none;">
             <div class="card">
                 <h2>🚀 Premium Acceleration Packages (2-Day Term)</h2>
-                <p style="color:#cbd5e1; font-size:0.9rem;">Removes daily timeframe constraints, extends match allocations, and opens continuous play options.</p>
-                
                 <div class="grid-options">
                     <div class="card" style="background: var(--bg-base); margin:0;">
                         <span class="badge badge-premium">KSh 80</span>
                         <h3>Brain Premium</h3>
-                        <p style="font-size:0.85rem;">Access the Brain Assessment 5 times daily at any hour with zero scheduled system blocks. Expires in 2 days.</p>
+                        <p style="font-size:0.85rem;">Access the Brain Assessment 5 times daily at any hour.</p>
                         <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(80, 'Brain Premium')">Purchase Tier</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); margin:0;">
                         <span class="badge badge-premium">KSh 150</span>
                         <h3>Matrix Premium</h3>
-                        <p style="font-size:0.85rem;">Increases allocation settings to grant 4 full interactive game sequences daily. Expires in 2 days.</p>
+                        <p style="font-size:0.85rem;">Grants 4 full interactive game sequences daily.</p>
                         <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(150, 'Matrix Premium')">Purchase Tier</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); margin:0;">
                         <span class="badge badge-premium">KSh 189</span>
                         <h3>Lexical Premium</h3>
-                        <p style="font-size:0.85rem;">Grants access to run 2 full verification word sets daily to accelerate metrics. Expires in 2 days.</p>
+                        <p style="font-size:0.85rem;">Grants access to run 2 full verification word sets daily.</p>
                         <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(189, 'Lexical Premium')">Purchase Tier</button>
                     </div>
                 </div>
@@ -176,31 +160,31 @@
 
             <div class="card" style="border-color: #a855f7;">
                 <h2>💎 Elite VIP Strategic Matrix (5-Day Active Term)</h2>
-                <p style="color:#cbd5e1; font-size:0.9rem;">Long-term programmatic scaling assets built to unlock user maximum daily parameters.</p>
-                
                 <div class="grid-options">
                     <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
                         <span class="badge badge-vip">KSh 243</span>
                         <h3>VIP Brain Stream</h3>
-                        <p style="font-size:0.85rem;">3 complete high-yield challenge sets delivered daily across an extended 5-day cycle.</p>
+                        <p style="font-size:0.85rem;">3 complete high-yield challenge sets delivered daily.</p>
                         <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(243, 'VIP Brain Stream')">Activate VIP</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
                         <span class="badge badge-vip">KSh 422</span>
                         <h3>VIP Matrix Hub</h3>
-                        <p style="font-size:0.85rem;">Run 2 full game series matrices daily against our backend AI models over a solid 5-day lifespan.</p>
+                        <p style="font-size:0.85rem;">Run 2 full game series matrices daily against our backend AI.</p>
                         <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(422, 'VIP Matrix Hub')">Activate VIP</button>
                     </div>
                     <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
                         <span class="badge badge-vip">KSh 650</span>
                         <h3>VIP Lexical Engine</h3>
-                        <p style="font-size:0.85rem;">Deploys 2 top-tier extreme spelling assessment sets daily for an extended 5-day validation run.</p>
+                        <p style="font-size:0.85rem;">Deploys 2 top-tier extreme spelling assessment sets daily.</p>
                         <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(650, 'VIP Lexical Engine')">Activate VIP</button>
                     </div>
                 </div>
             </div>
         </div>
-   <script>
+    </div>
+</div>
+<script>
     let wallet = 0.00;
     let quizIndex = 0, quizScore = 0;
     let lexIndex = 0, lexScore = 0, lexTimer = null, lexTimeLeft = 8;
@@ -238,8 +222,7 @@
         { options: ["Receipt", "Reciept", "Receit"], correct: 0 },
         { options: ["Tomorrow", "To-morrow", "Tommorow"], correct: 0 } 
     ];
-
-    function handleRegistration() {
+   function handleRegistration() {
         const name = document.getElementById('regName').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const phone = document.getElementById('regPhone').value.trim();
@@ -278,7 +261,9 @@
         document.getElementById('tabHome').className = 'nav-btn' + (tab === 'home' ? ' active' : '');
         document.getElementById('tabProfile').className = 'nav-btn' + (tab === 'profile' ? ' active' : '');
         document.getElementById('tabPackages').className = 'nav-btn' + (tab === 'packages' ? ' active' : '');
-    }// --- INTASEND AUTOMATED M-PESA CHECKOUT ENGINE ---
+    }
+
+    // --- INTASEND AUTOMATED M-PESA CHECKOUT ENGINE ---
     function triggerMpesaPayment(amount, packageName) {
         const activePhone = document.getElementById('profPhone').innerText;
         const activeEmail = document.getElementById('profEmail').innerText;
@@ -381,11 +366,8 @@
     }
 
     function checkWin(p) {
-        const wins = [, [3, 4, 5], [6, 7, 8],
-, [1, 4, 7], [2, 5, 8],
-, [2, 4, 6]
-        ];
-        return wins.some(w => w.every(i => tttBoard[i]===p));
+        const ways = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        return ways.some(w => w.every(i => tttBoard[i]===p));
     }
 
     function endMatch(res) {
@@ -416,7 +398,6 @@
         }
         lexTimeLeft = 8;
         document.getElementById('lexicalProgress').innerText = `Word ${lexIndex+1} of 15 (${lexIndex < 10 ? 'Hard Word' : 'Medium Word'})`;
-        document.getElementById('lexicalTimerText').innerText = `Time Left: ${lexTimeLeft}s`;
 
         const data = lexicalQuestions[lexIndex];
         const optDiv = document.getElementById('lexicalOptions'); optDiv.innerHTML = '';
@@ -428,10 +409,9 @@
 
         lexTimer = setInterval(() => {
             lexTimeLeft--;
-            document.getElementById('lexicalTimerText').innerText = `Time Left: ${lexTimeLeft}s`;
             if(lexTimeLeft <= 0) { clearInterval(lexTimer); alert("Time Up!"); lexIndex++; renderLex(); }
         }, 1000);
     }
 </script>
 </body>
-</html>
+</html> 
