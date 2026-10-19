@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://unpkg.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EA EarnHub Pro Platform</title>
@@ -278,39 +279,42 @@
     }
 
     // --- AUTOMATED MPESA POPUP TRIGGER HANDLER ---
-    async function triggerMpesaPayment(amount, packageName) {
-        // Fetch the user's phone number dynamically from their registration details
+    // --- INTASEND LIVE M-PESA CHECKOUT ENGINE ---
+    function triggerMpesaPayment(amount, packageName) {
         const activePhone = document.getElementById('profPhone').innerText;
+        const activeEmail = document.getElementById('profEmail').innerText;
         const activeName = document.getElementById('profNameDisplay').innerText;
 
-        if (!activePhone || activePhone === "loading..." || activePhone.length < 9) {
-            alert("⚠️ Error: Please log out and register with a valid Safaricom number first!");
+        if (!activePhone || activePhone === "loading...") {
+            alert("⚠️ Please create an account profile first before initializing payment!");
             return;
         }
 
-        alert(`Processing ${packageName}... An M-Pesa STK PIN prompt for KSh ${amount}.00 is being sent to phone: ${activePhone}`);
+        // Initialize the IntaSend Checkout Setup
+        let intasend = new IntaSend({
+            public_key: "ISPubKey_live_63673c68-ee63-4700-be87-573e0fe8ff35", // Replace with your own Live Public Key from intasend.com dashboard
+            live: true
+        });
 
-        try {
-            const response = await fetch('/api/stkpush', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    phone: activePhone,
-                    amount: amount,
-                    accountId: activeName
-                })
-            });
+        intasend.on("PROGRESS", (results) => { console.log("Payment in progress...", results); })
+        intasend.on("SUCCESS", (results) => {
+            alert(`🎉 Success! Payment verified for ${packageName}. Your premium status has been activated.`);
+            wallet += parseFloat(amount); // Automatically add funds or adjust player constraints locally
+            document.getElementById('walletBal').innerText = wallet.toFixed(2);
+        })
+        intasend.on("FAILED", (results) => { alert("❌ Transaction was declined or timed out."); })
 
-            const data = await response.json();
-            if (data.success) {
-                alert("✨ STK Push dispatched! Enter your M-Pesa PIN on your phone to complete your premium activation.");
-            } else {
-                alert("❌ Payment routing failed: " + (data.error || "Check system connection parameters"));
-            }
-        } catch (error) {
-            console.error("Payment Execution Error:", error);
-            alert("❌ Server connection lost. Your backend is checking transaction status channels.");
-        }
+        // Trigger the secure payment sheet modal
+        intasend.run({
+            amount: amount,
+            currency: "KES",
+            customer: {
+                first_name: activeName,
+                email: activeEmail,
+                phone_number: activePhone
+            },
+            billing_method: "M-PESA"
+        });
     }
 
     function executeWithdrawal() {
