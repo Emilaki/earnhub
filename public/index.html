@@ -292,8 +292,8 @@
 
         // Initialize the IntaSend Checkout Setup
         let intasend = new IntaSend({
-            public_key: "ISPubKey_live_63673c68-ee63-4700-be87-573e0fe8ff35", // Replace with your own Live Public Key from intasend.com dashboard
-            live: true
+          public_key: "ISPubKey_test_88df2cb1-16ba-4a6c-9475-bf404ec56208", 
+live: false 
         });
 
         intasend.on("PROGRESS", (results) => { console.log("Payment in progress...", results); })
