@@ -35,24 +35,13 @@
 </head>
 <body>
 <div class="wrapper">
-
-    <!-- ACCESS GATEWAY -->
     <div id="authPanel" class="card">
         <h2>Create Account — EA EarnHub Pro</h2>
         <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 15px;">⚠️ Enter valid details to track your secure earning profile and mobile checkout ledger.</p>
-        
-        <label>Full Name</label>
-        <input type="text" id="regName" placeholder="Enter your full name...">
-
-        <label>Email Address</label>
-        <input type="email" id="regEmail" placeholder="name@example.com">
-
-        <label>Registered Phone Number</label>
-        <input type="tel" id="regPhone" placeholder="e.g. 0712345678">
-
-        <label>Secure Password</label>
-        <input type="password" id="regPass" placeholder="••••••••">
-
+        <label>Full Name</label><input type="text" id="regName" placeholder="Enter your full name...">
+        <label>Email Address</label><input type="email" id="regEmail" placeholder="name@example.com">
+        <label>Registered Phone Number</label><input type="tel" id="regPhone" placeholder="e.g. 0712345678">
+        <label>Secure Password</label><input type="password" id="regPass" placeholder="••••••••">
         <button class="btn btn-lime" onclick="handleRegistration()">Create Account & Enter Platform</button>
     </div>
     <!-- MAIN PLATFORM INTERACTIVE DASHBOARD CONTAINER -->
@@ -62,14 +51,13 @@
             <div class="nav-btn" id="tabProfile" onclick="switchTab('profile')">Profile</div>
             <div class="nav-btn" id="tabPackages" onclick="switchTab('packages')">Packages</div>
         </div>
-
         <div class="card" style="border-color: var(--accent-lime); background: #16241d;">
             <h3>📋 System Menu Regulations</h3>
             <p style="margin: 0; font-size: 0.9rem; color: #cbd5e1;">
                 <strong>Withdrawal Instruction:</strong> When a user withdraws <strong>KSh 50.00</strong>, they leave with exactly <strong>KSh 42.00</strong> into custody after deductions. Min: KSh 100.
             </p>
         </div>
-
+        
         <!-- VIEW A: HOME PLAY PORTALS -->
         <div id="viewHome">
             <div class="card">
@@ -82,7 +70,6 @@
                     <div id="quizOptions"></div>
                 </div>
             </div>
-
             <div class="card">
                 <span class="badge">Base: 2 Games Daily</span>
                 <h2>2. Tic-Tac-Toe AI Engine</h2>
@@ -94,7 +81,6 @@
                     <p id="tttMatchStatus" style="font-weight:bold; color:var(--accent-lime);"></p>
                 </div>
             </div>
-
             <div class="card">
                 <span class="badge">Base: 1 Daily Chance</span>
                 <h2>3. Lexical Syntax Verifier</h2>
@@ -121,13 +107,11 @@
                 <hr style="border-color: var(--border-green);">
                 <h3>Available Balance Currency</h3>
                 <h1 style="font-size: 2.8rem; margin: 10px 0; color: var(--accent-lime);">KSh <span id="walletBal">0.00</span></h1>
-                
                 <div style="margin-top: 20px; padding: 15px; background: var(--bg-base); border-radius: 8px; border: 1px solid var(--border-green);">
                     <h4>Initialize Fund Outbound Settlement</h4>
                     <input type="number" id="withdrawAmt" placeholder="Enter amount to extract...">
                     <button class="btn btn-lime" onclick="executeWithdrawal()" style="width:100%; margin-top: 5px;">Submit Settlement Request</button>
                 </div>
-
                 <button class="btn btn-red" onclick="handleLogout()" style="width:100%; margin-top: 25px;">🔒 Disconnect Account Session</button>
             </div>
         </div>
@@ -137,48 +121,17 @@
             <div class="card">
                 <h2>🚀 Premium Acceleration Packages (2-Day Term)</h2>
                 <div class="grid-options">
-                    <div class="card" style="background: var(--bg-base); margin:0;">
-                        <span class="badge badge-premium">KSh 80</span>
-                        <h3>Brain Premium</h3>
-                        <p style="font-size:0.85rem;">Access the Brain Assessment 5 times daily at any hour.</p>
-                        <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(80, 'Brain Premium')">Purchase Tier</button>
-                    </div>
-                    <div class="card" style="background: var(--bg-base); margin:0;">
-                        <span class="badge badge-premium">KSh 150</span>
-                        <h3>Matrix Premium</h3>
-                        <p style="font-size:0.85rem;">Grants 4 full interactive game sequences daily.</p>
-                        <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(150, 'Matrix Premium')">Purchase Tier</button>
-                    </div>
-                    <div class="card" style="background: var(--bg-base); margin:0;">
-                        <span class="badge badge-premium">KSh 189</span>
-                        <h3>Lexical Premium</h3>
-                        <p style="font-size:0.85rem;">Grants access to run 2 full verification word sets daily.</p>
-                        <button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(189, 'Lexical Premium')">Purchase Tier</button>
-                    </div>
+                    <div class="card" style="background: var(--bg-base); margin:0;"><span class="badge badge-premium">KSh 80</span><h3>Brain Premium</h3><button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(80, 'Brain Premium')">Purchase Tier</button></div>
+                    <div class="card" style="background: var(--bg-base); margin:0;"><span class="badge badge-premium">KSh 150</span><h3>Matrix Premium</h3><button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(150, 'Matrix Premium')">Purchase Tier</button></div>
+                    <div class="card" style="background: var(--bg-base); margin:0;"><span class="badge badge-premium">KSh 189</span><h3>Lexical Premium</h3><button class="btn" style="width:100%; margin-top:10px;" onclick="triggerMpesaPayment(189, 'Lexical Premium')">Purchase Tier</button></div>
                 </div>
             </div>
-
             <div class="card" style="border-color: #a855f7;">
                 <h2>💎 Elite VIP Strategic Matrix (5-Day Active Term)</h2>
                 <div class="grid-options">
-                    <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
-                        <span class="badge badge-vip">KSh 243</span>
-                        <h3>VIP Brain Stream</h3>
-                        <p style="font-size:0.85rem;">3 complete high-yield challenge sets delivered daily.</p>
-                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(243, 'VIP Brain Stream')">Activate VIP</button>
-                    </div>
-                    <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
-                        <span class="badge badge-vip">KSh 422</span>
-                        <h3>VIP Matrix Hub</h3>
-                        <p style="font-size:0.85rem;">Run 2 full game series matrices daily against our backend AI.</p>
-                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(422, 'VIP Matrix Hub')">Activate VIP</button>
-                    </div>
-                    <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;">
-                        <span class="badge badge-vip">KSh 650</span>
-                        <h3>VIP Lexical Engine</h3>
-                        <p style="font-size:0.85rem;">Deploys 2 top-tier extreme spelling assessment sets daily.</p>
-                        <button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(650, 'VIP Lexical Engine')">Activate VIP</button>
-                    </div>
+                    <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;"><span class="badge badge-vip">KSh 243</span><h3>VIP Brain Stream</h3><button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(243, 'VIP Brain Stream')">Activate VIP</button></div>
+                    <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;"><span class="badge badge-vip">KSh 422</span><h3>VIP Matrix Hub</h3><button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(422, 'VIP Matrix Hub')">Activate VIP</button></div>
+                    <div class="card" style="background: var(--bg-base); border-color: #a855f7; margin:0;"><span class="badge badge-vip">KSh 650</span><h3>VIP Lexical Engine</h3><button class="btn" style="background: #a855f7; width:100%; margin-top:10px;" onclick="triggerMpesaPayment(650, 'VIP Lexical Engine')">Activate VIP</button></div>
                 </div>
             </div>
         </div>
@@ -188,10 +141,9 @@
     let wallet = 0.00;
     let quizIndex = 0, quizScore = 0;
     let lexIndex = 0, lexScore = 0, lexTimer = null, lexTimeLeft = 8;
-    
     let tttCount = 1, tttWins = 0, tttBoard = ["","","","","","","","",""], tttActive = true;
     const tttProfiles = ["Easy", "Easy", "Medium", "Hard", "Hard"];
-
+    
     const quizQuestions = [
         { q: "Easy 1: Solve the multipliers sequence: 5 x 4 + 3", a: ["23", "35", "20"], c: 0 },
         { q: "Easy 2: Primary protocol for hosting visual sites:", a: ["FTP", "HTTP", "SMTP"], c: 1 },
@@ -222,33 +174,23 @@
         { options: ["Receipt", "Reciept", "Receit"], correct: 0 },
         { options: ["Tomorrow", "To-morrow", "Tommorow"], correct: 0 } 
     ];
-
     function handleRegistration() {
         const name = document.getElementById('regName').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const phone = document.getElementById('regPhone').value.trim();
         const pass = document.getElementById('regPass').value.trim();
-        
-        if(!name || !email || !phone || !pass) { 
-            alert("Please accurately complete all registration tracks!"); 
-            return; 
-        }
-        
+        if(!name || !email || !phone || !pass) { alert("Please accurately complete all registration tracks!"); return; }
         document.getElementById('profNameDisplay').innerText = name;
         document.getElementById('profPhone').innerText = phone;
         document.getElementById('profEmail').innerText = email;
         document.getElementById('walletBal').innerText = wallet.toFixed(2);
-        
         document.getElementById('authPanel').style.display = 'none';
         document.getElementById('mainDashboard').style.display = 'block';
     }
 
     function handleLogout() {
-        document.getElementById('regName').value = '';
-        document.getElementById('regEmail').value = '';
-        document.getElementById('regPhone').value = '';
-        document.getElementById('regPass').value = '';
-        
+        document.getElementById('regName').value = ''; document.getElementById('regEmail').value = '';
+        document.getElementById('regPhone').value = ''; document.getElementById('regPass').value = '';
         document.getElementById('mainDashboard').style.display = 'none';
         document.getElementById('authPanel').style.display = 'block';
         alert("Session disconnected safely.");
@@ -258,153 +200,99 @@
         document.getElementById('viewHome').style.display = tab === 'home' ? 'block' : 'none';
         document.getElementById('viewProfile').style.display = tab === 'profile' ? 'block' : 'none';
         document.getElementById('viewPackages').style.display = tab === 'packages' ? 'block' : 'none';
-        
         document.getElementById('tabHome').className = 'nav-btn' + (tab === 'home' ? ' active' : '');
         document.getElementById('tabProfile').className = 'nav-btn' + (tab === 'profile' ? ' active' : '');
         document.getElementById('tabPackages').className = 'nav-btn' + (tab === 'packages' ? ' active' : '');
     }
 
-    // --- INTASEND AUTOMATED M-PESA CHECKOUT ENGINE ---
     function triggerMpesaPayment(amount, packageName) {
         const activePhone = document.getElementById('profPhone').innerText;
         const activeEmail = document.getElementById('profEmail').innerText;
         const activeName = document.getElementById('profNameDisplay').innerText;
-
-        if (!activePhone || activePhone === "loading...") {
-            alert("⚠️ Please create an account profile first before initializing payment!");
-            return;
-        }
-
-        let intasend = new IntaSend({
-            public_key: "ISPubKey_test_88df2cb1-16ba-4a6c-9475-bf404ec56208", 
-            live: false 
-        });
-
-        intasend.on("PROGRESS", (results) => { console.log("Payment in progress...", results); })
+        if (!activePhone || activePhone === "loading...") { alert("⚠️ Please create an account profile first!"); return; }
+        
+        let intasend = new IntaSend({ public_key: "ISPubKey_test_88df2cb1-16ba-4a6c-9475-bf404ec56208", live: false });
+        
         intasend.on("SUCCESS", (results) => {
-            alert(`🎉 Success! Payment verified for ${packageName}. Premium status activated.`);
+            alert(`🎉 Success! Payment verified for ${packageName}. Package activated.`);
             wallet += parseFloat(amount); 
             document.getElementById('walletBal').innerText = wallet.toFixed(2);
-        })
-        intasend.on("FAILED", (results) => { alert("❌ Transaction was declined or timed out."); })
-
-        intasend.run({
-            amount: amount,
-            currency: "KES",
-            customer: {
-                first_name: activeName,
-                email: activeEmail,
-                phone_number: activePhone
-            },
-            billing_method: "M-PESA"
         });
+        intasend.on("FAILED", (results) => { alert("❌ Transaction was declined."); });
+        intasend.run({ amount: amount, currency: "KES", customer: { first_name: activeName, email: activeEmail, phone_number: activePhone }, billing_method: "M-PESA" });
     }
 
     function executeWithdrawal() {
         const amt = parseFloat(document.getElementById('withdrawAmt').value);
         if(isNaN(amt) || amt < 100 || amt > 1000) { alert("Denied: Outbound settlement must scale between KSh 100.00 and KSh 1,000.00 daily."); return; }
         if(amt > wallet) { alert("Denied: Deficit balance ledger funds."); return; }
-        wallet -= amt;
-        document.getElementById('walletBal').innerText = wallet.toFixed(2);
-        alert(`Request Dispatched! Total requested: KSh ${amt.toFixed(2)}. Net funds processed to your mobile wallet after platform fee parameters.`);
+        wallet -= amt; document.getElementById('walletBal').innerText = wallet.toFixed(2);
+        alert(`Request Dispatched! Total requested: KSh ${amt.toFixed(2)}.`);
     }
 
-    function startBrainQuiz() {
-        quizIndex = 0; quizScore = 0;
-        document.getElementById('quizEngine').style.display = 'block';
-        renderQuiz();
-    }
-
+    function startBrainQuiz() { quizIndex = 0; quizScore = 0; document.getElementById('quizEngine').style.display = 'block'; renderQuiz(); }
     function renderQuiz() {
         if(quizIndex >= quizQuestions.length) {
             document.getElementById('quizEngine').style.display = 'none';
             if(quizScore >= 7) { wallet += 20; alert(`🎉 Passed! Score: ${quizScore}/10. KSh 20.00 added.`); }
-            else { alert(`❌ Failed. Score: ${quizScore}/10. Requires at least 7 correct entries.`); }
-            document.getElementById('walletBal').innerText = wallet.toFixed(2);
-            return;
+            else { alert(`❌ Failed. Score: ${quizScore}/10.`); }
+            document.getElementById('walletBal').innerText = wallet.toFixed(2); return;
         }
-        const data = quizQuestions[quizIndex];
-        document.getElementById('quizQuestion').innerText = `Question ${quizIndex+1} of 10: ${data.q}`;
+        const data = quizQuestions[quizIndex]; document.getElementById('quizQuestion').innerText = `Question ${quizIndex+1} of 10: ${data.q}`;
         const optDiv = document.getElementById('quizOptions'); optDiv.innerHTML = '';
         data.a.forEach((o, i) => {
             const btn = document.createElement('div'); btn.className = 'option-item'; btn.innerText = o;
-            btn.onclick = () => { if(i === data.c) quizScore++; quizIndex++; renderQuiz(); };
-            optDiv.appendChild(btn);
+            btn.onclick = () => { if(i === data.c) quizScore++; quizIndex++; renderQuiz(); }; optDiv.appendChild(btn);
         });
     }
 
-    function startTicTacToeGame() {
-        tttCount = 1; tttWins = 0;
-        document.getElementById('tttEngine').style.display = 'block';
-        initTTT();
-    }
-
-    function initTTT() {
-        tttBoard = ["","","","","","","","",""]; tttActive = true;
-        document.getElementById('tttSeriesStatus').innerText = `Match ${tttCount} of 5 (Computer Mode: ${tttProfiles[tttCount-1]})`;
-        document.getElementById('tttMatchStatus').innerText = "Your Move (X)";
-        renderTTT();
-    }
-
+    function startTicTacToeGame() { tttCount = 1; tttWins = 0; document.getElementById('tttEngine').style.display = 'block'; initTTT(); }
+    function initTTT() { tttBoard = ["","","","","","","","",""]; tttActive = true; document.getElementById('tttSeriesStatus').innerText = `Match ${tttCount} of 5`; renderTTT(); }
     function renderTTT() {
         const grid = document.getElementById('tttGrid'); grid.innerHTML = '';
         tttBoard.forEach((cell, idx) => {
             const d = document.createElement('div'); d.className = 'ttt-cell'; d.innerText = cell;
-            d.onclick = () => { if(tttActive && tttBoard[idx]==="") { tttBoard[idx]="X"; renderTTT(); if(checkWin("X")){endMatch("win");} else if(!tttBoard.includes("")){endMatch("tie");} else {tttActive=false; document.getElementById('tttMatchStatus').innerText="AI moving..."; setTimeout(aiMove, 400);} } };
+            d.onclick = () => { if(tttActive && tttBoard[idx]==="") { tttBoard[idx]="X"; renderTTT(); if(checkWin("X")){endMatch("win");} else if(!tttBoard.includes("")){endMatch("tie");} else {tttActive=false; setTimeout(aiMove, 400);} } };
             grid.appendChild(d);
         });
     }
-
     function aiMove() {
         let empty = []; tttBoard.forEach((c,i)=>{if(c==="")empty.push(i);});
-        let mode = tttProfiles[tttCount-1]; let choice = -1;
-        if(mode === "Hard") {
-            for(let i=0;i<empty.length;i++) { tttBoard[empty[i]]="X"; if(checkWin("X")){choice=empty[i]; tttBoard[empty[i]]=""; break;} tttBoard[empty[i]]=""; }
-        }
-        if(choice === -1) choice = empty[Math.floor(Math.random()*empty.length)];
-        tttBoard[choice] = "O"; renderTTT();
-        if(checkWin("O")) { endMatch("loss"); } else if(!tttBoard.includes("")) { endMatch("tie"); } else { tttActive = true; document.getElementById('tttMatchStatus').innerText="Your Move (X)"; }
+        let choice = empty[Math.floor(Math.random()*empty.length)]; tttBoard[choice] = "O"; renderTTT();
+        if(checkWin("O")) { endMatch("loss"); } else if(!tttBoard.includes("")) { endMatch("tie"); } else { tttActive = true; }
     }
-
     function checkWin(p) {
         const ways = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
         return ways.some(w => w.every(i => tttBoard[i]===p));
     }
+    function endMatch(res) {
+        if(res==="win") { tttWins++; alert("✅ Won this match!"); } else if(res==="loss") { alert("❌ Computer won."); } else { alert("👔 Draw."); }
+        tttCount++;
+        if(tttCount <= 5) { initTTT(); } else {
+            document.getElementById('tttEngine').style.display = 'none';
+            if(tttWins >= 3) { wallet += 50; alert(`🎉 Series Won! ${tttWins}/5 victories. KSh 50.00 credited.`); }
+            else { alert(`⚠️ Series Failed.`); }
+            document.getElementById('walletBal').innerText = wallet.toFixed(2);
+        }
+    }
 
-    function endMatch(res) {if(res==="win") { tttWins++; alert("✅ Won this match!"); } else if(res==="loss") { alert("❌ Computer won this match."); } else { alert("👔 Match ended in a draw."); }
-tttCount++;
-if(tttCount <= 5) { initTTT(); } else {
-document.getElementById('tttEngine').style.display = 'none';
-if(tttWins >= 3) { wallet += 50; alert(🎉 Series Won! ${tttWins}/5 victories. KSh 50.00 credited.); }
-else { alert(⚠️ Series Failed. ${tttWins}/5 victories. Minimum 3 required.); }
-document.getElementById('walletBal').innerText = wallet.toFixed(2);
-}
-}
-function startLexicalQuiz() {
-lexIndex = 0; lexScore = 0;
-document.getElementById('lexicalEngine').style.display = 'block';
-renderLex();
-}
-function renderLex() {
-clearInterval(lexTimer);
-if(lexIndex >= lexicalQuestions.length) {
-document.getElementById('lexicalEngine').style.display = 'none';
-if (lexScore >= 13) { wallet += 100; alert(🎉 Passed! Score: ${lexScore}/15. KSh 100.00 added.); }
-else { alert(❌ Failed. Score: ${lexScore}/15. Requires 13 points.); }
-document.getElementById('walletBal').innerText = wallet.toFixed(2);
-return;
-}
-lexTimeLeft = 8;
-document.getElementById('lexicalProgress').innerText = Word ${lexIndex+1} of 15 (${lexIndex < 10 ? 'Hard Word' : 'Medium Word'});
-const data = lexicalQuestions[lexIndex];
-const optDiv = document.getElementById('lexicalOptions'); optDiv.innerHTML = '';
-data.options.forEach((o, i) => {
-const btn = document.createElement('div'); btn.className = 'option-item'; btn.innerText = o;
-btn.onclick = () => { clearInterval(lexTimer); if(i === data.correct) lexScore++; lexIndex++; renderLex(); };
-optDiv.appendChild(btn);
-});
-lexTimer = setInterval(() => {
-lexTimeLeft--;
-if(lexTimeLeft <= 0) { clearInterval(lexTimer); alert("Time Up!"); lexIndex++; renderLex(); }
-}, 1000);
-}
+    function startLexicalQuiz() { lexIndex = 0; lexScore = 0; document.getElementById('lexicalEngine').style.display = 'block'; renderLex(); }
+    function renderLex() {
+        clearInterval(lexTimer);
+        if(lexIndex >= lexicalQuestions.length) {
+            document.getElementById('lexicalEngine').style.display = 'none';
+            if (lexScore >= 13) { wallet += 100; alert(`🎉 Passed! Score: ${lexScore}/15. KSh 100.00 added.`); }
+            else { alert(`❌ Failed.`); }
+            document.getElementById('walletBal').innerText = wallet.toFixed(2); return;
+        }
+        lexTimeLeft = 8; document.getElementById('lexicalProgress').innerText = `Word ${lexIndex+1} of 15`;
+        const data = lexicalQuestions[lexIndex]; const optDiv = document.getElementById('lexicalOptions'); optDiv.innerHTML = '';
+        data.options.forEach((o, i) => {
+            const btn = document.createElement('div'); btn.className = 'option-item'; btn.innerText = o;
+            btn.onclick = () => { clearInterval(lexTimer); if(i === data.correct) lexScore++; lexIndex++; renderLex(); }; optDiv.appendChild(btn);
+        });
+        lexTimer = setInterval(() => { lexTimeLeft--; if(lexTimeLeft <= 0) { clearInterval(lexTimer); alert("Time Up!"); lexIndex++; renderLex(); } }, 1000);
+    }
+</script>
+</body>
+</html>
