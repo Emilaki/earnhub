@@ -46,6 +46,25 @@
                 </div>
             </div>
 
+            <!-- PORTAL 2: TIC-TAC-TOE MATRIX GAME -->
+            <div class="card">
+                <span class="badge">Base: 2 Games Daily</span>
+                <h2>2. Tic-Tac-Toe AI Engine</h2>
+                <p><strong>Instructions:</strong> Play a series of 5 interactive games against the computer (2 Hard, 1 Medium, 2 Easy profiles). Win **at least 3 matches** out of 5 to earn **KSh 50.00**. Otherwise, you lose. Available twice a day.</p>
+                
+                <div class="video-box">
+                    <h4 style="margin:0 0 5px 0;">🎬 Premium Tic-Tac-Toe Gameplay Walkthrough</h4>
+                    <p style="font-size:0.8rem; color:#cbd5e1; margin:0 0 10px 0;">Watch this simulation demo to attract members to maximize daily premium package gains!</p>
+                    <button class="btn btn-lime" style="width:auto; padding:6px 12px; font-size:0.8rem;" onclick="alert('Playing promotional walkthrough simulation video...')">Play Demo Preview</button>
+                </div>
+
+                <button class="btn btn-lime" onclick="startTicTacToeGame()">Engage Computer Matrix</button>
+                <div id="tttEngine" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-green); text-align: center;">
+                    <h3 id="tttSeriesStatus">Match 1 of 5</h3>
+                    <div class="ttt-grid" id="tttGrid"></div>
+                    <p id="tttMatchStatus" style="font-weight:bold; color:var(--accent-lime);"></p>
+                </div>
+            </div>
             <div class="card">
                 <span class="badge">KSh 100</span>
                 <h2>2. Lexical Syntax Verifier</h2>
