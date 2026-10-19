@@ -90,6 +90,20 @@
             </div>
         </div>
 
+    <!-- FUND OUTBOUND SETTLEMENT PANEL -->
+                <div style="margin-top: 20px; padding: 15px; background: var(--bg-base); border-radius: 8px; border: 1px solid var(--border-green);">
+                    <h4>Initialize Fund Outbound Settlement</h4>
+                    <p style="font-size: 0.85rem; color: #cbd5e1;">Limits: Min KSh 100.00 | Max KSh 1,000.00 daily rules apply.</p>
+                    <label style="font-weight:bold; font-size:0.9rem; display:block; margin-bottom:5px;">Amount to Withdraw (KSh)</label>
+                    <input type="number" id="withdrawAmt" placeholder="Enter amount to extract..." style="width: 100%; padding: 12px; background: var(--bg-base); border: 1px solid var(--border-green); border-radius: 8px; color: white; box-sizing: border-box; margin-bottom:15px;">
+                    <button class="btn btn-lime" onclick="executeWithdrawal()" style="width:100%;">Submit Settlement Request</button>
+                </div>
+
+                <!-- CONTACT SUPPORT MODULE -->
+                <div style="margin-top: 20px; text-align:center;">
+                    <p style="font-size:0.9rem; color:#cbd5e1;">Need system assistance? Reach out to support operations instantly:</p>
+                    <button class="btn" style="width:auto; padding:10px 20px;" onclick="alert('Support channels activated! Contacting portal ledger desk at support@earnhub-verified.co.ke')">📬 Contact Us</button>
+                </div>
         <div id="viewPackages" style="display: none;">
             <div class="card">
                 <h2>🚀 Premium Acceleration Packages</h2>
